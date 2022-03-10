@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Tag.belongsToMany(models.Review, {through: models.Review_tags, foreignKey: 'id', otherKey: 'tag_id'})
     }
   }
   Tag.init({

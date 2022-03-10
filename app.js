@@ -4,7 +4,8 @@ const session = require("express-session")
 const passport = require("passport");
 const bodyParser = require("body-parser")
 const cors = require("cors");
-var mysql = require("mysql2")
+var mysql = require("mysql2");
+const models = require("./models/index.js");
 const app = express();
 
 app.use(cors())
@@ -21,25 +22,12 @@ var connection = mysql.createConnection({
     database:'reviewdb',
 });
 
-connection.connect(function(err) {
-    if (err) throw err;
-    console.log('Connected');
-});
-
-connection.query('SELECT 1 + 1 AS output', function(err, rows, fields){
-    if(err) throw err;
-    console.log('result -> ', rows[0].output ,'\n','fields -> ', fields )
-});
-
 app.listen(8080, function(err){
     if(!err)
         console.log('Server ready');
     else console.log(err);
 });
 
-app.get('/',function(res,req){
+app.get('/',(req,res) => {
     res.send('zdarova');
 });
-
-
-connection.end();
