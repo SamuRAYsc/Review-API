@@ -52,11 +52,11 @@ app.post('/',(req,res) => {
 app.post('/login', (req,res, next) => {
     passport.authenticate("local", (err, user, info) =>{
         if (err) throw err;
-        if(!user) res.send("No User found");
+        if(!user) res.send(false);
         else{
             req.logIn(user, err=> {
                 if (err) throw err;
-                res.send("Succ");
+                res.send(user);
                 console.log(req.user);
             });
         }
