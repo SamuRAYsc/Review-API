@@ -21,11 +21,13 @@ app.use(passport.session());
 require('./passportConfig')(passport);
 
 var connection = mysql.createConnection({
-    host:'eu-cdbr-west-02.cleardb.net',
-    user:'b241a15460b450',
-    password:'52a0f87b',
-    database:'heroku_4da2a7f96e284d0',
+    host:'spryrr1myu6oalwl.chr7pe7iynqr.eu-west-1.rds.amazonaws.com',
+    user:'v5r6zaqjfnivzo71',
+    password:'z8qhz8nog4lxa1ib',
+    database:'lpegx2q2qvlr7sgs',
 });
+//mysql://b241a15460b450:52a0f87b@eu-cdbr-west-02.cleardb.net/heroku_4da2a7f96e284d0?reconnect=true                           cleardb
+//mysql://v5r6zaqjfnivzo71:z8qhz8nog4lxa1ib@spryrr1myu6oalwl.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/lpegx2q2qvlr7sgs   shark
 
 connection.connect(function(err) {
     if (err) throw err;
@@ -47,7 +49,7 @@ app.post('/login', passport.authenticate("local"), (req, res) =>{
 });
 
 app.get('/user', (req, res) =>{
-    res.send(req.user)
+    res.send('succ')
 });
 
 app.get('/logout', (req, res) =>{
