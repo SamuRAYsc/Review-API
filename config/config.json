@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "root",
+    "password": "root",
+    "database": "reviewdb",
+    "host": "localhost",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "b241a15460b450",
+    "password": "52a0f87b",
+    "database": "heroku_4da2a7f96e284d0",
+    "host": "eu-cdbr-west-02.cleardb.net",
+    "dialect": "mysql"
+  }
+}

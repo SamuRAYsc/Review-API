@@ -21,10 +21,10 @@ app.use(passport.session());
 require('./passportConfig')(passport);
 
 var connection = mysql.createConnection({
-    host:'localhost',
-    user:'root',
-    password:'root',
-    database:'reviewdb',
+    host:'eu-cdbr-west-02.cleardb.net',
+    user:'b241a15460b450',
+    password:'52a0f87b',
+    database:'heroku_4da2a7f96e284d0',
 });
 
 connection.connect(function(err) {
