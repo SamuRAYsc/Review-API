@@ -32,7 +32,7 @@ connection.connect(function(err) {
     console.log('Connected');
 });
 
-app.listen(8080, function(err){
+app.listen(process.env.PORT||PORT, function(err){
     if(!err)
         console.log('Server ready');
     else console.log(err);
