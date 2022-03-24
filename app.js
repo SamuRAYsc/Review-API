@@ -43,7 +43,7 @@ app.post('/',(req,res) => {
 });
 
 app.post('/login', passport.authenticate("local"), (req, res) =>{
-    res.send("succ")
+    res.send(req.user)
 });
 
 app.get('/user', (req, res) =>{

@@ -10,10 +10,8 @@ module.exports = function(passport){
             bcrypt.compare(password, user.password, (err, result) => {
                 if(err) throw err;
                 if (result === true) {
-                    console.log('pass');
                     return done(null, user)
                 } else {
-                    console.log('wrong');
                     return done(null, false)
                 }
             });
@@ -21,6 +19,7 @@ module.exports = function(passport){
     );
     passport.serializeUser((user,cb) => {
         cb(null, user.id);
+        console.log(user);
     })
     passport.deserializeUser(async (id,cb) =>{
         const user = await models.User.findOne({where: {id: id}})
