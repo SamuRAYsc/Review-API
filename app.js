@@ -26,8 +26,8 @@ var connection = mysql.createConnection({
     password:'z8qhz8nog4lxa1ib',
     database:'lpegx2q2qvlr7sgs',
 });
-//mysql://b241a15460b450:52a0f87b@eu-cdbr-west-02.cleardb.net/heroku_4da2a7f96e284d0?reconnect=true                           cleardb
-//mysql://v5r6zaqjfnivzo71:z8qhz8nog4lxa1ib@spryrr1myu6oalwl.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/lpegx2q2qvlr7sgs   shark
+//mysql://b241a15460b450:52a0f87b@eu-cdbr-west-02.cleardb.net/heroku_4da2a7f96e284d0?reconnect=true
+//mysql://v5r6zaqjfnivzo71:z8qhz8nog4lxa1ib@spryrr1myu6oalwl.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/lpegx2q2qvlr7sgs
 
 connection.connect(function(err) {
     if (err) throw err;
@@ -45,11 +45,11 @@ app.post('/',(req,res) => {
 });
 
 app.post('/login', passport.authenticate("local"), (req, res) =>{
-    res.send(req.user)
+    res.send('')
 });
 
 app.get('/user', (req, res) =>{
-    res.send('succ')
+    res.send(req.user)
 });
 
 app.get('/logout', (req, res) =>{
