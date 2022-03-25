@@ -18,11 +18,13 @@ module.exports = function(passport){
         })
     );
     passport.serializeUser((user,cb) => {
+        console.log('ser worked');
         cb(null, user.id);
     })
     passport.deserializeUser((id,cb) =>{
         models.User.findOne({_id: id},(err, user) => {
-            cb(err, user)
+            console.log('deser worked');
+            cb(err, user);
         }
         )
     })
