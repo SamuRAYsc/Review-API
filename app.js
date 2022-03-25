@@ -1,7 +1,7 @@
 require("dotenv").config();
 const cors = require("cors");
 const express = require("express");
-const session = require("cookie-session")
+const session = require("express-session")
 const passport = require("passport");
 const cookieParser = require("cookie-parser")
 const bcrypt = require("bcryptjs")
@@ -14,7 +14,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true}));
 app.use(cors({origin:'http://localhost:3000', credentials:true}))
-app.use(session({ secret: process.env.SESSION_SECRET, cookie: { secure: true }})); 
+app.use(session({ secret: process.env.SESSION_SECRET, resave: true, saveUninitialized: true })); 
 // app.use(session({ name: 'session', secret: process.env.SESSION_SECRET, resave: true, saveUninitialized: true, cookie: { secure: true }})); 
 app.use(cookieParser(process.env.SESSION_SECRET))
 app.use(passport.initialize());
