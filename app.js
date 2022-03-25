@@ -20,7 +20,7 @@ app.use(cookieParser(process.env.SESSION_SECRET))
 app.use(passport.initialize());
 app.use(passport.session());
 require('./passportConfig')(passport);
-console.log(process.env.SESSION_SECRET)
+console.log("123 ", process.env.SESSION_SECRET)
 
 var connection = mysql.createConnection({
     host:'spryrr1myu6oalwl.chr7pe7iynqr.eu-west-1.rds.amazonaws.com',
