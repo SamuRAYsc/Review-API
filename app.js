@@ -2,6 +2,7 @@ require("dotenv").config();
 const cors = require("cors");
 const express = require("express");
 const session = require("cookie-session");
+let redisStore = require('connect-redis')(session)
 const passport = require("passport");
 const cookieParser = require("cookie-parser");
 const bcrypt = require("bcryptjs");
@@ -10,11 +11,19 @@ var mysql = require("mysql2");
 const models = require("./models/index.js");
 
 const app = express();
+const {createClient} = require("redis");
+let redisClient = createClient({ legacyMode:true })
+redisClient.connect().catch(console.error)
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true}));
 app.use(cors({origin:'http://localhost:3000', credentials:true}))
-app.use(session({ secret: "testing secret 123", resave: true, saveUninitialized: true })); 
+app.use(session({ 
+    secret: "testing secret 123", 
+    store: new redisStore({ client: redisClient}), 
+    resave: true, 
+    saveUninitialized: true 
+})); 
 // app.use(session({ name: 'session', secret: process.env.SESSION_SECRET, resave: true, saveUninitialized: true, cookie: { secure: true }})); 
 app.use(cookieParser("testing secret 123"))
 app.use(passport.initialize());
