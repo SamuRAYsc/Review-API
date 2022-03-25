@@ -62,7 +62,7 @@ app.post("/login", (req, res, next) => {
 // });
 
 app.get('/user', (req, res) =>{
-    res.send(req.user)
+    res.send(passport.deserializeUser(req.session.user.id))
 });
 
 app.get('/logout', (req, res) =>{
