@@ -44,9 +44,22 @@ app.post('/',(req,res) => {
     res.send('Server UP');
 });
 
-app.post('/login', passport.authenticate("local"), (req, res) =>{
-    res.send(req.session)
-});
+app.post("/login", (req, res, next) => {
+    passport.authenticate("local", (err, user, info) => {
+      if (err) throw err;
+      if (!user) res.send("No User Exists");
+      else {
+        req.logIn(user, (err) => {
+          if (err) throw err;
+          res.send("Successfully Authenticated");
+          console.log(req.user);
+        });
+      }
+    })(req, res, next);
+  });
+// app.post('/login', passport.authenticate("local"), (req, res) =>{
+//     res.send(req.session)
+// });
 
 app.get('/user', (req, res) =>{
     res.send(req.user)
