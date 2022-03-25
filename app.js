@@ -2,7 +2,7 @@ require("dotenv").config();
 const cors = require("cors");
 const express = require("express");
 const session = require("cookie-session");
-let redisStore = require('connect-redis')(session)
+let RedisStore = require('connect-redis')(session)
 const passport = require("passport");
 const cookieParser = require("cookie-parser");
 const bcrypt = require("bcryptjs");
@@ -17,10 +17,10 @@ redisClient.connect().catch(console.error)
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true}));
-app.use(cors({origin:'http://localhost:3000', credentials:true}))
+// app.use(cors({origin:'http://localhost:3000', credentials:true}))
 app.use(session({ 
     secret: "testing secret 123", 
-    store: new redisStore({ client: redisClient}), 
+    store: new RedisStore({ client: redisClient}), 
     resave: true, 
     saveUninitialized: true 
 })); 
