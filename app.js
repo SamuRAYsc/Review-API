@@ -14,9 +14,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true}));
 app.use(cors({origin:'http://localhost:3000', credentials:true}))
-app.use(session({ name: 'session', maxAge: 3600000, secret: process.env.SESSION_SECRET, cookie:{ secure: true }})); 
+app.use(session({ name: 'session', maxAge: 3600000, secret: process.env.SESSION_SECRET,resave: true, saveUninitialized: true, cookie: { secure: true }})); 
 app.use(cookieParser(process.env.SESSION_SECRET))
-// app.use(session({ name: 'session', maxAge: 3600000, secret: process.env.SESSION_SECRET,resave: true, saveUninitialized: true})); 
 app.use(passport.initialize());
 app.use(passport.session());
 require('./passportConfig')(passport);
@@ -46,7 +45,7 @@ app.post('/',(req,res) => {
 });
 
 app.post('/login', passport.authenticate("local"), (req, res) =>{
-    res.send(req)
+    res.send(req.session)
 });
 
 app.get('/user', (req, res) =>{
