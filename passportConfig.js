@@ -21,16 +21,12 @@ module.exports = function(passport){
         console.log('ser worked');
         cb(null, user.id);
     })
-    passport.deserializeUser((id,cb) =>{
-        models.User.findOne({_id: id},(err, user) => {
-            console.log('deser worked');
-            cb(err, user);
+    passport.deserializeUser(async (id,cb) =>{
+        const user = await models.User.findOne({where: {_id: id}})
+        console.log('in deser')
+        if (user) {
+            console.log('found user');
+                cb(null, user);
         }
-        )
     })
-    // passport.deserializeUser(async (id,cb) =>{
-    //     const user = await models.User.findOne({where: {_id: id}})
-    //     if (user)
-    //         cb(null, user)
-    // })
 }
