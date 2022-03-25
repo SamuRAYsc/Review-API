@@ -16,11 +16,10 @@ app.use(bodyParser.urlencoded({ extended:true}));
 app.use(cors({origin:'http://localhost:3000', credentials:true}))
 app.use(session({ secret: "testing secret 123", resave: true, saveUninitialized: true })); 
 // app.use(session({ name: 'session', secret: process.env.SESSION_SECRET, resave: true, saveUninitialized: true, cookie: { secure: true }})); 
-app.use(cookieParser(process.env.SESSION_SECRET))
+app.use(cookieParser("testing secret 123"))
 app.use(passport.initialize());
 app.use(passport.session());
 require('./passportConfig')(passport);
-console.log("123 ", process.env.SESSION_SECRET)
 
 var connection = mysql.createConnection({
     host:'spryrr1myu6oalwl.chr7pe7iynqr.eu-west-1.rds.amazonaws.com',

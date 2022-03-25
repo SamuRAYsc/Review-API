@@ -18,7 +18,6 @@ module.exports = function(passport){
         })
     );
     passport.serializeUser((user,cb) => {
-        console.log('ser worked');
         cb(null, user.id);
     })
     passport.deserializeUser(async (id,cb) =>{
