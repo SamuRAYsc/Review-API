@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": "root",
-    "database": "reviewdb",
-    "host": "localhost",
+    "username": "v5r6zaqjfnivzo71",
+    "password": "z8qhz8nog4lxa1ib",
+    "database": "lpegx2q2qvlr7sgs",
+    "host": "spryrr1myu6oalwl.chr7pe7iynqr.eu-west-1.rds.amazonaws.com",
     "dialect": "mysql"
   },
   "test": {
