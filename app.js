@@ -13,7 +13,7 @@ const models = require("./models/index.js");
 const app = express();
 const {createClient} = require("redis");
 let redisClient = createClient({ legacyMode:true })
-await redisClient.connect()
+async () => {await redisClient.connect()}
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true}));
