@@ -15,14 +15,14 @@ module.exports = function(passport){
                     return done(null, false)
                 }
             });
-        })(req, res, done)
+        })
     );
     passport.serializeUser((user,cb) => {
         console.log('ser worked');
         cb(null, user.id);
     })
     passport.deserializeUser(async (id,cb) =>{
-        const user = await models.User.findOne({where: {_id: id}})
+        const user = await models.User.findOne({where: {id: id}})
         console.log('in deser')
         if (user) {
             console.log('found user');
