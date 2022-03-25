@@ -15,7 +15,7 @@ module.exports = function(passport){
                     return done(null, false)
                 }
             });
-        })
+        })(req, res, done)
     );
     passport.serializeUser((user,cb) => {
         console.log('ser worked');
