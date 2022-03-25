@@ -20,9 +20,15 @@ module.exports = function(passport){
     passport.serializeUser((user,cb) => {
         cb(null, user.id);
     })
-    passport.deserializeUser(async (id,cb) =>{
-        const user = await models.User.findOne({where: {id: id}})
-        if (user)
-            cb(null ,user)
+    passport.deserializeUser((id,cb) =>{
+        models.User.findOne({_id: id},(err, res) => {
+            cb(null, user)
+        }
+        )
     })
+    // passport.deserializeUser(async (id,cb) =>{
+    //     const user = await models.User.findOne({where: {_id: id}})
+    //     if (user)
+    //         cb(null, user)
+    // })
 }
