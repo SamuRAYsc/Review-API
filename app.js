@@ -17,7 +17,7 @@ async () => {await redisClient.connect()}
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true}));
-app.use(cors({origin:'http://localhost:3000', credentials:true}))
+app.use(cors({origin:'https://luminous-belekoy-e89225.netlify.app/', credentials:true}))
 app.use(session({ 
     store: new RedisStore({ client: redisClient}), 
     secret: "testing secret 123", 
