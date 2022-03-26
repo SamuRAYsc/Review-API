@@ -14,8 +14,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true}));
 // app.use(cors()); // this works
-app.use(cors({credentials:true}))
-// app.use(cors({origin:'https://luminous-belekoy-e89225.netlify.app/', credentials:true}))
+app.use(cors({origin:'https://luminous-belekoy-e89225.netlify.app/', credentials:true}))
 app.use(session({ 
     secret: "testing secret 123", 
     resave: true, 
