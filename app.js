@@ -1,7 +1,10 @@
 require("dotenv").config();
 const cors = require("cors");
 const express = require("express");
-const session = require("cookie-session");
+// const session = require("cookie-session");
+const session = require("express-session");
+const redis = require("redis");
+const ConnectRedis = require("connect-redis");
 const passport = require("passport");
 const cookieParser = require("cookie-parser");
 const bcrypt = require("bcryptjs");
@@ -13,12 +16,29 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true}));
-// app.use(cors()); // this works
-app.use(cors({origin:'https://luminous-belekoy-e89225.netlify.app', credentials:true}))
+app.use(cors({origin:'https://luminous-belekoy-e89225.netlify.app', credentials:true}));
+const RedisStore = ConnectRedis(session);
+const redisClient = redis.createClient({
+    host: 'https://review-api-2022.herokuapp.com',
+    port: process.env.PORT||PORT
+})
+redisClient.on('error', (err) => {
+    console.log('Error in connection to redis ' + err);
+})
+redisClient.on('connect', (err) => {
+    console.log('Redis connected');
+})
+app.set('trust proxy', 1)
 app.use(session({ 
+    store: new RedisStore({ client: redisClient}),
     secret: "testing secret 123", 
-    resave: true, 
-    saveUninitialized: true 
+    resave: false, 
+    saveUninitialized: true,
+    cookie: {
+        secure : true,
+        httpOnly: false,
+        maxAge: 1000 * 60 * 30,
+    }
 })); 
 // app.use(session({ name: 'session', secret: process.env.SESSION_SECRET, resave: true, saveUninitialized: true, cookie: { secure: true }})); 
 app.use(cookieParser("testing secret 123"))
@@ -55,7 +75,7 @@ app.post('/login', passport.authenticate("local"), (req, res) =>{
 });
 
 app.get('/user', (req, res) =>{
-    res.send(req.user)
+    res.send(req.user);
 });
 
 app.get('/logout', (req, res) =>{
