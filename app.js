@@ -77,7 +77,7 @@ app.get('/loginFailed', (req, res) => {
 });
 
 app.get('/user', (req, res) =>{
-    res.send(req.user);
+    res.send({ user: req.user, sessionID: req.sessionID});
 });
 
 app.get('/logout', (req, res) =>{
