@@ -36,7 +36,7 @@ app.use(session({
     resave: false, 
     saveUninitialized: true,
     cookie: {
-        secure : true,
+        secure : false,
         httpOnly: false,
         maxAge: 1000 * 60 * 30,
     }
@@ -72,7 +72,7 @@ app.post('/',(req,res) => {
 });
 
 app.post('/login', passport.authenticate("local"), (req, res) =>{
-    res.send(req.user)
+    res.send(session);
 });
 
 app.get('/user', (req, res) =>{
