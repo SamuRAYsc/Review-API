@@ -75,7 +75,7 @@ app.post('/login', passport.authenticate("local"),(req, res) => {res.send(req.se
 // });
 
 app.get('/user', (req, res) =>{
-    res.send(req.user);
+    res.send(req.sessionID);
 });
 
 app.get('/logout', (req, res) =>{
