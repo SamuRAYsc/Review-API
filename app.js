@@ -16,7 +16,8 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true}));
-app.use(cors({origin:'https://luminous-belekoy-e89225.netlify.app', credentials:true}));
+app.use(cors());
+// app.use(cors({origin:'https://luminous-belekoy-e89225.netlify.app', credentials:true}));
 const RedisStore = ConnectRedis(session);
 const redisClient = redis.createClient({
     host: 'https://review-api-2022.herokuapp.com',
@@ -28,12 +29,17 @@ redisClient.on('error', (err) => {
 redisClient.on('connect', (err) => {
     console.log('Redis connected');
 })
-// app.set('trust proxy', 1)
+app.set('trust proxy', 1)
 app.use(session({ 
     store: new RedisStore({ client: redisClient}),
     secret: "testing secret 123", 
     resave: false, 
     saveUninitialized: true,
+    cookie: {
+        secure : true,
+        httpOnly: false,
+        maxAge: 1000 * 60 * 30,
+    }
 })); 
 // app.use(session({ name: 'session', secret: process.env.SESSION_SECRET, resave: true, saveUninitialized: true, cookie: { secure: true }})); 
 app.use(cookieParser("testing secret 123"))
