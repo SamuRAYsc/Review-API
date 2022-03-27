@@ -34,11 +34,6 @@ app.use(session({
     secret: "testing secret 123", 
     resave: false, 
     saveUninitialized: true,
-    cookie: {
-        secure : false,
-        httpOnly: false,
-        maxAge: 1000 * 60 * 30,
-    }
 })); 
 // app.use(session({ name: 'session', secret: process.env.SESSION_SECRET, resave: true, saveUninitialized: true, cookie: { secure: true }})); 
 app.use(cookieParser("testing secret 123"))
