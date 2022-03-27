@@ -69,10 +69,10 @@ app.post('/login', passport.authenticate('local', {
     })
 );
 app.get('/loginSuccess', (req, res) => {
-    res.send(req);
+    res.send(req.sessionID);
 });
 app.get('/loginFailed', (req, res) => {
-    res.send(err);
+    res.send('Login Failed! Try again');
 });
 
 app.get('/user', (req, res) =>{
