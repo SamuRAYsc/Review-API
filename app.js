@@ -71,14 +71,14 @@ app.post('/login', passport.authenticate('local', {
 app.get('/loginSuccess', (req, res) => {
     req.session.user = req.user;
     req.session.save();
-    res.send(req.session);
+    res.send(req.sessionID);
 });
 app.get('/loginFailed', (req, res) => {
     res.send('Login Failed! Try again');
 });
 
 app.get('/user', (req, res) =>{
-    res.send(req.session.user);
+    res.send(req.user);
 });
 
 app.get('/logout', (req, res) =>{
