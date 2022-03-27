@@ -66,12 +66,12 @@ app.post('/',(req,res) => {
 app.post('/login', passport.authenticate('local', {
     successRedirect: '/loginSuccess',
     failureRedirect: '/loginFailed',
-    })
+    }),(req, res) => {res.send(req.sessionID);}
 );
 app.get('/loginSuccess', (req, res) => {
     req.session.user = req.user;
     req.session.save();
-    res.send(req.sessionID);
+    res.send(req.session);
 });
 app.get('/loginFailed', (req, res) => {
     res.send('Login Failed! Try again');
