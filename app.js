@@ -69,6 +69,7 @@ app.post('/login', passport.authenticate('local', {
     })
 );
 app.get('/loginSuccess', (req, res) => {
+    req.session.save();
     res.send(req.sessionID);
 });
 app.get('/loginFailed', (req, res) => {
