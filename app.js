@@ -1,8 +1,9 @@
 require("dotenv").config();
 const cors = require("cors");
 const express = require("express");
-const session = require("cookie-session");
-// const session = require("express-session");
+// const session = require("cookie-session");
+const session = require("express-session");
+const FileStore = require("session-file-store")(session);
 const passport = require("passport");
 const cookieParser = require("cookie-parser");
 const bcrypt = require("bcryptjs");
@@ -11,6 +12,9 @@ var mysql = require("mysql2");
 const models = require("./models/index.js");
 
 const app = express();
+const fileStoreOptions ={
+    ttl: 1000 * 60 * 30,
+};
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true}));
@@ -19,6 +23,7 @@ app.use(cors({origin:'https://luminous-belekoy-e89225.netlify.app', credentials:
 
 app.set('trust proxy', 1)
 app.use(session({ 
+    store: new FileStore(fileStoreOptions),
     secret: "testing secret 123", 
     resave: false, 
     saveUninitialized: true,
@@ -64,10 +69,10 @@ app.post('/login', passport.authenticate('local', {
     })
 );
 app.get('/loginSuccess', (req, res) => {
-    res.send({ success: true, user: req.user })
+    res.send(req);
 });
 app.get('/loginFailed', (req, res) => {
-    res.send({ success: false, error: "Incorrect credentials" })
+    res.send(err);
 });
 
 app.get('/user', (req, res) =>{
