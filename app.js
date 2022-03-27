@@ -29,7 +29,7 @@ redisClient.on('error', (err) => {
 redisClient.on('connect', (err) => {
     console.log('Redis connected');
 })
-app.set('trust proxy', 1)
+// app.set('trust proxy', 1)
 app.use(session({ 
     store: new RedisStore({ client: redisClient}),
     secret: "testing secret 123", 
