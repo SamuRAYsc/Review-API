@@ -21,18 +21,17 @@ app.use(cors());
 const RedisStore = ConnectRedis(session);
 const redisClient = redis.createClient({
     host: 'https://review-api-2022.herokuapp.com',
-    port: process.env.PORT||PORT
+    port: process.env.PORT||PORT,
+    legacyMode: true
 })
-async () => {
-    await redisClient.connect();
-    redisClient.on('error', (err) => {
-        console.log('Error in connection to redis ' + err);
-    })
-    redisClient.on('connect', (err) => {
-        console.log('Redis connected');
-    })
-}
-app.set('trust proxy', 1)
+redisClient.on('error', (err) => {
+    console.log('Error in connection to redis ' + err);
+})
+redisClient.on('connect', (err) => {
+    console.log('Redis connected');
+})
+
+// app.set('trust proxy', 1)
 app.use(session({ 
     store: new RedisStore({ client: redisClient}),
     secret: "testing secret 123", 
