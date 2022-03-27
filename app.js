@@ -21,13 +21,13 @@ app.use(bodyParser.urlencoded({ extended:true}));
 // app.use(cors());
 app.use(cors({origin:'https://luminous-belekoy-e89225.netlify.app', credentials:true}));
 
-app.set('trust proxy', 1)
 app.use(session({ 
     store: new FileStore(fileStoreOptions),
     secret: "testing secret 123", 
     resave: false, 
     saveUninitialized: true,
     cookie: {
+        sameSite: 'none',
         secure : true,
         httpOnly: false,
         maxAge: 1000 * 60 * 30,
@@ -38,6 +38,7 @@ app.use(cookieParser("testing secret 123"))
 app.use(passport.initialize());
 app.use(passport.session());
 require('./passportConfig')(passport);
+app.set('trust proxy', 1);
 
 var connection = mysql.createConnection({
     host:'spryrr1myu6oalwl.chr7pe7iynqr.eu-west-1.rds.amazonaws.com',
