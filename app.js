@@ -58,8 +58,16 @@ app.post('/',(req,res) => {
     res.send('Server UP');
 });
 
-app.post('/login', passport.authenticate("local"), (req, res) =>{
-    res.send(req);
+app.post('/login', passport.authenticate('local', {
+    successRedirect: '/loginSuccess',
+    failureRedirect: '/loginFailed',
+    })
+);
+app.get('/loginSuccess', (req, res) => {
+    res.send({ success: true, user: req.user })
+});
+app.get('/loginFailed', (req, res) => {
+    res.send({ success: false, error: "Incorrect credentials" })
 });
 
 app.get('/user', (req, res) =>{
