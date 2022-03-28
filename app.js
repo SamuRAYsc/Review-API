@@ -9,6 +9,7 @@ const bcrypt = require("bcryptjs");
 const bodyParser = require("body-parser");
 var mysql = require("mysql2");
 const models = require("./models/index.js");
+const { sequelize } = require("./models/index.js");
 
 const app = express();
 const fileStoreOptions ={
@@ -88,6 +89,17 @@ app.get('/userreviews', async (req, res) =>{
         attributes: ['id','name', 'updatedAt']
     });
     res.send(List);
+});
+app.get('/latestReviews', async (req, res) =>{
+    const List = await models.Review.findAll({ order: sequelize.fn('max', sequelize.col('updatedAt')),
+        limit: 2,
+        attributes: ['id','name', 'description', 'updatedAt']
+    });
+    res.send(List);
+});
+app.get('/bestReviews', async (req, res) =>{
+    
+    res.send('123');
 });
 
 app.get('/logout', (req, res) =>{
