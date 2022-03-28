@@ -84,7 +84,9 @@ app.get('/user', (req, res) =>{
     res.send(req.user);
 });
 app.get('/userlist', async (req, res) =>{
-    const List = await models.User.findAll();
+    const List = await models.User.findAll({
+        attributes: ['id','email', 'isAdmin']
+    });
     res.send(List);
 });
 
