@@ -89,6 +89,12 @@ app.get('/userlist', async (req, res) =>{
     });
     res.send(List);
 });
+app.get('/userreviews', async (req, res) =>{
+    const List = await models.Review.findAll({ where:{ author_id: req.user.id },
+        attributes: ['id','name', 'updatedAt']
+    });
+    res.send(List);
+});
 
 app.get('/logout', (req, res) =>{
     req.logout();
