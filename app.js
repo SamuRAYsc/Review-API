@@ -1,7 +1,6 @@
 require("dotenv").config();
 const cors = require("cors");
 const express = require("express");
-// const session = require("cookie-session");
 const session = require("express-session");
 const FileStore = require("session-file-store")(session);
 const passport = require("passport");
@@ -18,7 +17,6 @@ const fileStoreOptions ={
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true}));
-// app.use(cors());
 app.use(cors({origin:'https://luminous-belekoy-e89225.netlify.app', credentials:true}));
 
 app.use(session({ 
@@ -33,7 +31,6 @@ app.use(session({
         maxAge: 1000 * 60 * 30,
     }
 })); 
-// app.use(session({ name: 'session', secret: process.env.SESSION_SECRET, resave: true, saveUninitialized: true, cookie: { secure: true }})); 
 app.use(cookieParser("testing secret 123"))
 app.use(passport.initialize());
 app.use(passport.session());
@@ -46,8 +43,6 @@ var connection = mysql.createConnection({
     password:'z8qhz8nog4lxa1ib',
     database:'lpegx2q2qvlr7sgs',
 });
-//mysql://b241a15460b450:52a0f87b@eu-cdbr-west-02.cleardb.net/heroku_4da2a7f96e284d0?reconnect=true
-//mysql://v5r6zaqjfnivzo71:z8qhz8nog4lxa1ib@spryrr1myu6oalwl.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/lpegx2q2qvlr7sgs
 
 connection.connect(function(err) {
     if (err) throw err;
@@ -64,7 +59,6 @@ app.post('/',(req,res) => {
     res.send('Server UP');
 });
 
-// app.post('/login', passport.authenticate("local"),(req, res) => {res.send(req.sessionID);}
 app.post('/login', passport.authenticate('local', {
     successRedirect: '/loginSuccess',
     failureRedirect: '/loginFailed',
