@@ -91,7 +91,7 @@ app.get('/userreviews', async (req, res) =>{
     res.send(List);
 });
 app.get('/latestReviews', async (req, res) =>{
-    const List = await models.Review.findAll({ order: [ sequelize.fn('max', sequelize.col('updatedAt')) ],
+    const List = await models.Review.findAll({ order: [ ['updatedAt', "DESC"] ],
         limit: 2,
         attributes: ['id','name', 'description', 'updatedAt']
     });
