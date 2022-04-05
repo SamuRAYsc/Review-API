@@ -22,7 +22,7 @@ app.use(cors({origin:'https://luminous-belekoy-e89225.netlify.app', credentials:
 
 app.use(session({ 
     store: new FileStore(fileStoreOptions),
-    secret: SESSION_SECRET, 
+    secret: process.env.SESSION_SECRET, 
     resave: false, 
     saveUninitialized: true,
     cookie: {
@@ -32,7 +32,7 @@ app.use(session({
         maxAge: 1000 * 60 * 30,
     }
 })); 
-app.use(cookieParser(SESSION_SECRET))
+app.use(cookieParser(process.env.SESSION_SECRET))
 app.use(passport.initialize());
 app.use(passport.session());
 require('./passportConfig')(passport);
