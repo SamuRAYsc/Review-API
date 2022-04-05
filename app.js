@@ -94,11 +94,11 @@ app.get('/latestReviews', async (req, res) =>{
     const List = await models.Review.findAll({ 
         include: [{
             model: models.User,
-            attributes: [['email', 'author']]
+            attributes: ['email']
         },
         {
             model: models.Creation,
-            attributes: [['name', 'creation']]
+            attributes: ['name']
         }],
         order: [ ['updatedAt', "DESC"] ],
         limit: 3,
