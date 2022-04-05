@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       User.belongsToMany(models.Review, {through: models.Likes, foreignKey: 'id', otherKey: 'user_id'});
       User.belongsToMany(models.Creation, {through: models.Ratings, foreignKey: 'id', otherKey: 'user_id'});
-      User.hasMany(models.Review);
+      User.hasMany(models.Review, {foreignKey:'id'});
     }
   }
   User.init({
