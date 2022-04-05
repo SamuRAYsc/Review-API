@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Review.belongsToMany(models.User, {through: models.Likes, foreignKey: 'id', otherKey: 'review_id'})
+      // Review.belongsToMany(models.User, {through: models.Likes, foreignKey: 'id', otherKey: 'review_id'})
       Review.belongsToMany(models.Tag, {through: models.Review_tags, foreignKey: 'id', otherKey: 'review_id'})
       Review.belongsToMany(models.Image, {through: models.Image_imageable, foreignKey: 'id', otherKey: 'imageable_id'})
       Review.belongsTo(models.User, {foreignKey:'author_id'})
