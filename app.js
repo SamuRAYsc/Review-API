@@ -91,9 +91,18 @@ app.get('/userreviews', async (req, res) =>{
     res.send(List);
 });
 app.get('/latestReviews', async (req, res) =>{
-    const List = await models.Review.findAll({ order: [ ['updatedAt', "DESC"] ],
+    const List = await models.Review.findAll({ 
+        include: [{
+            model: models.User,
+            as: Author
+        },
+        {
+            model: models.Creation,
+            as: Creation
+        }],
+        order: [ ['updatedAt', "DESC"] ],
         limit: 3,
-        attributes: ['id','name', 'description', 'updatedAt']
+        attributes: ['id','name', 'description', 'updatedAt', Author.email , Creation.name ]
     });
     res.send(List);
 });
