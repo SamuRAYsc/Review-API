@@ -18,7 +18,7 @@ const fileStoreOptions ={
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true}));
-app.use(cors({origin:'https://luminous-belekoy-e89225.netlify.app', credentials:true}));
+app.use(cors({origin:process.env.CORS_ORIGIN, credentials:true}));
 
 app.use(session({ 
     store: new FileStore(fileStoreOptions),
@@ -39,10 +39,10 @@ require('./passportConfig')(passport);
 app.set('trust proxy', 1);
 
 var connection = mysql.createConnection({
-    host:'spryrr1myu6oalwl.chr7pe7iynqr.eu-west-1.rds.amazonaws.com',
-    user:'v5r6zaqjfnivzo71',
-    password:'z8qhz8nog4lxa1ib',
-    database:'lpegx2q2qvlr7sgs',
+    host:process.env.DB_HOST,
+    user:process.env.DB_USERNAME,
+    password:process.env.DB_PASS,
+    database:process.env.DB_NAME,
 });
 
 connection.connect(function(err) {
@@ -106,8 +106,8 @@ app.get('/latestReviews', async (req, res) =>{
     });
     res.send(List);
 });
+
 app.get('/bestReviews', async (req, res) =>{
-    
     res.send('123');
 });
 
